@@ -1,23 +1,19 @@
-MyTown2 [![Build Status](http://img.shields.io/travis/MyEssentials/MyTown2/master.svg)](https://travis-ci.org/MyEssentials/MyTown2) [![Release][release-img]][release-url]
+MyTown2
 =======
-Version 2 of MyTown - A Minecraft Server Protection Mod
+Version 2 of MyTown - A Minecraft Server Protection Mod.
+- Forked for the GT:NewHorizons Servers
 
- - Support AfterWind: [![Support via Gittip](http://img.shields.io/gittip/AfterWind.svg)](https://www.gittip.com/AfterWind/)
- - Support Legobear154: 
-[![Support via Gittip](http://img.shields.io/gittip/legobear154.svg)](https://www.gittip.com/legobear154/)
+Support the original Contributors:
+ - Support AfterWind: https://www.gittip.com/AfterWind/
+ - Support Legobear154: https://www.gittip.com/legobear154/
 
 
-Protections contained at: https://github.com/MyEssentials/MyTown2-Protections
+The original Protections contained at: https://github.com/MyEssentials/MyTown2-Protections
+Protections for the GT:NewHorizons Modpack will follow soon
 
 <h3>Jenkins</h3>
 
-MyTown2 Builds: https://ci.mineguild.net/job/MyTown2/
-
-MyEssentials-Core Builds: https://ci.mineguild.net/job/MyEssentials-Core/
-
-MyPermission Builds: https://ci.mineguild.net/job/MyPermissions/
-
-(To run this, you need MyTown2, MyEssentials-Core and MyPermissions!)
+(Comming soon)
 
 Features
 ========
@@ -34,25 +30,11 @@ Modpacks
 ========
 You are welcome to include MyTown in any modpacks. Credits/links are appriciated, but not mandatory.
 
-Submitting Pull Requests
-========================
-https://github.com/MyEssentials/MyTown2/wiki/PR-Requirements
-
 License
 =======
-The license for MyTown 2 can be found here https://github.com/MyEssentials/MyTown2/blob/master/LICENSE
+The license for MyTown 2 can be found in the repository
 Its the "unlicense"
 
 Requesting Features
 ===================
 When requesting a new feature, be clear with what your requesting, and mark it as enhancement.
-If it is a feature that requires protection for a specific mod please, please, please, tell me what exactly to protect from in said mod as some of us may not know much about the mod.
-
-Contacting
-==========
-* On Espernet #mytown
-* On the Minecraft Forum
-
-
-[release-img]: https://img.shields.io/github/release/MyEssentials/MyTown2.svg
-[release-url]: http://minecraft.curseforge.com/mc-mods/224242-mytown2/files

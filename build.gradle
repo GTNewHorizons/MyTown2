@@ -17,10 +17,6 @@ buildscript {
 
 repositories {
     maven {
-        name = "bukkit-repo"
-        url = "http://repo.bukkit.org/content/groups/public/"
-    }
-    maven {
         name = "SpongePowered"
         url = "https://repo.spongepowered.org/maven"
     }
@@ -32,7 +28,6 @@ repositories {
 
 // Load Configs
 
-apply plugin: "curseforge"
 apply plugin: "forge"
 
 ext.configFile = file "build.properties"
@@ -43,13 +38,9 @@ ext.configFile.withReader {
     ext.config = new ConfigSlurper().parse prop
 }
 
-if (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) {
-    ext.config.build_number = System.env.TRAVIS_TAG.substring(0, System.env.TRAVIS_TAG.length()-1)
-    ext.config.build_type = System.env.TRAVIS_TAG.substring(System.env.TRAVIS_TAG.length()-1)
-} else {
-    ext.config.build_number = config.mytown2_build_version
-    ext.config.build_type = config.mytown2_build_type
-}
+ext.config.build_number = config.mytown2_build_version
+ext.config.build_type = config.mytown2_build_type
+
 
 // Configure Everything
 
@@ -64,8 +55,6 @@ minecraft {
 
 // Setup Deps
 dependencies {
-
-	
     // Subproject deps
     compile project(":MyEssentials-Core")
     compile project(":MyPermissions")

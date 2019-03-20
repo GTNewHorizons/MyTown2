@@ -47,8 +47,8 @@ if (System.env.TRAVIS_TAG != null && !System.env.TRAVIS_TAG.isEmpty()) {
     ext.config.build_number = System.env.TRAVIS_TAG.substring(0, System.env.TRAVIS_TAG.length()-1)
     ext.config.build_type = System.env.TRAVIS_TAG.substring(System.env.TRAVIS_TAG.length()-1)
 } else {
-    ext.config.build_number = "0000"
-    ext.config.build_type = "r"
+    ext.config.build_number = config.mytown2_build_version
+    ext.config.build_type = config.mytown2_build_type
 }
 
 // Configure Everything
@@ -64,8 +64,7 @@ minecraft {
 
 // Setup Deps
 dependencies {
-    testCompile "junit:junit:4.11"
-    testCompile project(":MyEssentials-TestSuite")
+
 	
     // Subproject deps
     compile project(":MyEssentials-Core")
@@ -85,12 +84,4 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude '*.info', 'plugin.yml'
     }
-}
-
-// Setup Curse Upload task
-curse {
-    apiKey = System.env.CURSEFORGEKEY
-    projectId = config.project_id
-    changelog = "" // TODO Add changelog support
-    releaseType = config.build_type.equals('a') ? "alpha" : (config.build_type.equals('b') ? "beta" : "release")
 }

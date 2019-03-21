@@ -106,6 +106,7 @@ public class ProtectionManager
     // Check if player has NO permission to enter. First we check the ENTER flag.
     // If that flag is false, don't check for warp.
     // If it is true, do the warp check
+    // The ProtectionManager returns True if there is no Town at given location
 
     boolean tWarpIsOK = false;
     boolean tHasPermissionToEnter = ProtectionManager.hasPermission( res, FlagType.ENTER, player.dimension, (int) Math.floor( player.posX ), (int) Math.floor( player.posY ), (int) Math.floor( player.posZ ) );
@@ -114,36 +115,68 @@ public class ProtectionManager
 
     if( !tHasPermissionToEnter || !tWarpIsOK )
     {
-      if( lastTickPos == null )
+      boolean tDoKnockBack = false;
+      if ( town == null ) // This should never happen; But better safe than sorry..?!
+        return;
+
+      // We do have a last position;
+      if( lastTickPos != null )
       {
+        // Try to get town at last position
+        Town tLastTown = MyTownUtils.getTownAtPosition( lastTickPos.getDim(), (int) Math.floor( lastTickPos.getX() ) >> 4, (int) Math.floor( lastTickPos.getZ() ) >> 4 );
+
+        // There is a last town; and it's the same town as the current one;
+        // This means the permission nodes must've changed. Deport player to the next border
+        if ( tLastTown != null && tLastTown.getName().equals( town.getName() ) )
+        {
+          ChatManager.send( res.getPlayer(), "mytown.notification.town.deported" );
+          tDoKnockBack = true;
+        }
+      }
+      else
+        tDoKnockBack = true;
+
+
+      // Knockback happens if:
+      // - There is no old Position (Player never entered any town yet)
+      // - There is a last position and it's within the same town as the current location (Flags changed meanwhile)
+      // In all other instances, the player is Teleported back to his old position
+      if( tDoKnockBack )
         res.knockbackPlayerToBorder( town );
-      }
-      else if( lastTickPos.getX() != player.posX || lastTickPos.getY() != player.posY || lastTickPos.getZ() != player.posZ || lastTickPos.getDim() != player.dimension )
-      {
+      else
         PlayerUtils.teleport( player, lastTickPos.getDim(), lastTickPos.getX(), lastTickPos.getY(), lastTickPos.getZ() );
-      }
     }
-    else
+    else // flags are ok
     {
-      // TODO: Refactor so that it's understandable
+      // If we don't have a "last" position; AND:
+      // If the CHUNK location has changed...
       if( lastTickPos != null && ( ( (int) Math.floor( lastTickPos.getX() ) ) >> 4 != (int) ( Math.floor( player.posX ) ) >> 4 || ( (int) Math.floor( lastTickPos.getZ() ) ) >> 4 != (int) ( Math.floor( player.posZ ) ) >> 4 ) )
       {
+        // ... and the Dimension has not changed
         if( lastTickPos.getDim() == player.dimension )
         {
+          // Do LocationCheck with old/new chunk
           res.checkLocation( ( (int) Math.floor( lastTickPos.getX() ) ) >> 4, ( (int) Math.floor( lastTickPos.getZ() ) ) >> 4,
               ( (int) Math.floor( player.posX ) ) >> 4, ( (int) ( Math.floor( player.posZ ) ) ) >> 4, player.dimension );
         }
         else
         {
+          // Do LocationCheck with just the new chunk; Dimension has changed, so we DEFINITELY have left the old town
           res.checkLocationOnDimensionChanged( (int) ( Math.floor( player.posX ) ), (int) ( Math.floor( player.posZ ) ), player.dimension );
         }
       }
 
+      // We do have a "last" position AND:
+      // We do have a town
       if( lastTickPos != null && town != null )
       {
+        // Try to get a Plot in this town, and if available the last plot pos (Just as with towns above)
         Plot currentPlot = town.plotsContainer.get( player.dimension, (int) Math.floor( player.posX ), (int) Math.floor( player.posY ), (int) Math.floor( player.posZ ) );
         Plot lastTickPlot = town.plotsContainer.get( lastTickPos.getDim(), (int) Math.floor( lastTickPos.getX() ), (int) Math.floor( lastTickPos.getY() ), (int) Math.floor( lastTickPos.getZ() ) );
 
+        // Resident is in a plot; AND
+        // The last Plot is null OR different from the current one
+        // Prints enter/leave messages for plots
         if( currentPlot != null && ( lastTickPlot == null || currentPlot != lastTickPlot ) )
         {
           ChatManager.send( player, "mytown.notification.plot.enter", currentPlot );
@@ -153,6 +186,8 @@ public class ProtectionManager
           ChatManager.send( player, "mytown.notification.plot.enter", LocalManager.get( "mytown.notification.plot.enter.unassigned" ) );
         }
       }
+
+      // Store the last position of the resident on our map
       lastTickPlayerPos.put( player, new EntityPos( player.posX, player.posY, player.posZ, player.dimension ) );
     }
   }

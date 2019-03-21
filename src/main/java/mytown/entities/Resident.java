@@ -91,8 +91,14 @@ public class Resident implements IChatFormat
 
   /* ----- Map ----- */
 
-  /**
-   * Called when a player changes location from a chunk to another
+  /***
+   * Called when a player changes location from a chunk to another.
+   * Checks if the player has entered/left a town; And prints the according messages
+   * @param oldChunkX Old Chunk X; Chunk "FROM"
+   * @param oldChunkZ Old Chunk Z; Chunk "FROM"
+   * @param newChunkX New Chunk X; Chunk "TO"
+   * @param newChunkZ New Chunk Z; Chunk "TO"
+   * @param dimension Current Dimension
    */
   public void checkLocation( int oldChunkX, int oldChunkZ, int newChunkX, int newChunkZ, int dimension )
   {
@@ -121,8 +127,13 @@ public class Resident implements IChatFormat
     }
   }
 
-  /**
+  /***
+   * Called when a player changes location from a chunk to another.
    * More simpler version of location check, without the need to know the old chunk's coords
+   * Checks if the player has entered/left a town; And prints the according messages
+   * @param newChunkX New Chunk X; Chunk "TO"
+   * @param newChunkZ New Chunk Z; Chunk "TO"
+   * @param dimension Current Dimension
    */
   public void checkLocationOnDimensionChanged( int newChunkX, int newChunkZ, int dimension )
   {

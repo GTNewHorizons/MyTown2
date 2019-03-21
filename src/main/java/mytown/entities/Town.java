@@ -308,6 +308,14 @@ public class Town implements Comparable<Town>, IChatFormat
 
   /* ----- Comparable ----- */
 
+  /***
+   * This compares one town to another.
+   * IT DOES NOT RETURN EQUAL IF THE TOWN IS THE SAME
+   * This is based on the NUMBER of Town Residents!
+   * To Compare a Town, compare the TownName, which is the unique identifier
+   * @param t
+   * @return
+   */
   @Override
   public int compareTo( Town t )
   { // TODO Flesh this out more for ranking towns?

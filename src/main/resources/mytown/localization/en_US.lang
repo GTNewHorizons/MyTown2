@@ -318,6 +318,7 @@ mytown.notification.claim.chunkload.all={3|Successfully chunkloaded all (}{a|%s}
 mytown.notification.claim.chunkunload={3|Successfully removed chunkloading from this chunk}
 mytown.notification.claim.chunkunload.all={3|Successfully removed chunkloading from all (}{a|%s}{3| chunks) in this town}
 mytown.notification.town.owners={c| Owners: }{%s}
+mytown.notification.town.deported={3|You no longer have access and have been deported}
 
 # Help for commands
 mytown.cmd.assistant.blocks.help={|Everything related to TownBlocks (chunks in town)}

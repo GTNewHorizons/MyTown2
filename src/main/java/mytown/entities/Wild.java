@@ -5,9 +5,6 @@ import myessentials.chat.api.ChatManager;
 import myessentials.localization.api.LocalManager;
 import mytown.entities.flag.Flag;
 import mytown.entities.flag.FlagType;
-import net.minecraft.util.EnumChatFormatting;
-import sun.util.locale.LocaleMatcher;
-
 
 /**
  * Wilderness permissions

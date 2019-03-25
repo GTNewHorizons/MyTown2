@@ -229,7 +229,9 @@ public class TownBlock implements IChatFormat
     public IChatComponent toChatMessage()
     {
       IChatComponent root = new ChatComponentText( "" );
-
+      
+      // Todo: Return a List of Claims; 4 each line; With
+      // Hover text including information about x/z coordinates
       for( TownBlock block : values() )
       {
         root.appendSibling( block.toChatMessage() );

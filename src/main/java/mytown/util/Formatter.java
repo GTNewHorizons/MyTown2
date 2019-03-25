@@ -28,7 +28,7 @@ public class Formatter
 
   public static String formatBlockInfo( TownBlock block )
   {
-    return String.format( " ---------- Block ----------\nTown: %1$s\nDimension: %2$s\nLocation: %3$s", block.getTown().getName(), block.getDim(), block.getCoordString() );
+    return String.format( " ---------- Block ----------\nTown: %1$s\nDimension: %2$s\nChunk: %3$s\nCoordinates: %4$s", block.getTown().getName(), block.getDim(), block.getCoordString(), block.getAbsoluteCoordString() );
   }
 
   public static void sendMap( Resident res, int dim, int cx, int cz )
@@ -63,7 +63,7 @@ public class Formatter
         if( b != null )
         {
           extraBuilder.setHoverEventShowText( formatBlockInfo( b ) );
-          extraBuilder.setClickEventRunCommand( "/t info " + b.getTown().getName() );
+          extraBuilder.setClickEventRunCommand( "/mytown info " + b.getTown().getName() );
         }
       }
 

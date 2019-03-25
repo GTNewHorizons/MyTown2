@@ -64,7 +64,12 @@ public class TownBlock implements IChatFormat
   {
     return String.format( "%s, %s", x, z );
   }
-
+  
+  public String getAbsoluteCoordString()
+  {
+    return String.format( "X: %s, Z: %s", x << 4, z << 4 );
+  }
+  
   public Town getTown()
   {
     return town;

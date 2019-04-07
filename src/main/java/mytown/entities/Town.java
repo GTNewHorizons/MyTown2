@@ -86,7 +86,7 @@ public class Town implements Comparable<Town>, IChatFormat
     int tWarp = TCWarpHandler.getTotalWarp( res.getPlayer() );
     int tMaxWarp = flagsContainer.getValue( FlagType.MAXWARP ) != null ? flagsContainer.getValue( FlagType.MAXWARP ) : FlagType.MAXWARP.defaultValue;
 
-    if ( tWarp < tMaxWarp )
+    if ( tWarp < tMaxWarp || tMaxWarp < 0)
       return true;
 
     boolean rankBypass;

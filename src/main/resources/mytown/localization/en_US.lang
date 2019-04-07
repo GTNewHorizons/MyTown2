@@ -52,7 +52,7 @@ mytown.flag.PVP={3|Allows PVP - Player vs. Player}
 mytown.flag.RESTRICTIONS={3|Gives permission outside player's plots}
 mytown.flag.FAKERS={3|Allows fake players to bypass (ex: TCGolems)}
 mytown.flag.NEARBY={3|Allows towns to be made near this town}
-mytown.flag.MAXWARP={3|The maximum allowed warp for outsiders to enter}
+mytown.flag.MAXWARP={3|The maximum allowed warp for outsiders to enter. Disabled if set to < 0}
 
 # Tools
 mytown.tool.plot.sell.name={9|Plot Seller}

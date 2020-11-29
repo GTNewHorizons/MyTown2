@@ -1,8 +1,8 @@
 [submodule "MyEssentials-Core"]
 	path = MyEssentials-Core
-	url = https://github.com/Namikon/MyEssentials-Core
+	url = https://github.com/GTNewHorizons/MyEssentials-Core
 	branch = 1.7.10_GTNH
 [submodule "MyPermissions"]
 	path = MyPermissions
-	url = http://github.com/Namikon/MyPermissions
+	url = http://github.com/GTNewHorizons/MyPermissions
 	branch = 1.7.10_GTNH

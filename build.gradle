@@ -58,6 +58,7 @@ dependencies {
     // Subproject deps
     compile project(":MyEssentials-Core")
     compile project(":MyPermissions")
+    compile files("libs")
 }
 
 // Process Resources, injecting version numbers in

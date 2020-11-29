@@ -18,6 +18,8 @@ build
 
 #runtime
 run
+libs
+.gitignore
 
 #mac
 .DS_Store

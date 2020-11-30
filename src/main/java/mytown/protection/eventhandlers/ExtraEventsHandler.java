@@ -3,12 +3,16 @@ package mytown.protection.eventhandlers;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import myessentials.entities.api.ChunkPos;
+import myessentials.utils.ColorUtils;
+import org.apache.commons.lang3.StringUtils;
 import myessentials.utils.WorldUtils;
 import mytown.MyTown;
 import mytown.new_datasource.MyTownUniverse;
 import mytown.entities.TownBlock;
 import mytown.entities.Wild;
 import mytown.entities.flag.FlagType;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
 import net.minecraftforge.event.world.ExplosionEvent;
 
 import java.util.List;
@@ -56,7 +60,21 @@ public class ExtraEventsHandler
         if( !(Boolean) block.getTown().flagsContainer.getValue( FlagType.EXPLOSIONS ) )
         {
           ev.setCanceled( true );
-          block.getTown().notifyEveryone( MyTown.instance.LOCAL.getLocalization( FlagType.EXPLOSIONS.getTownNotificationKey() ) );
+
+          StringBuilder sb = new StringBuilder();
+          String[] arr = new String[]{
+                  StringUtils.split(MyTown.instance.LOCAL.getLocalizationMap().get(FlagType.EXPLOSIONS.getTownNotificationKey()), "|}")[1],". Pos: ",
+                  Integer.toString((int) ev.explosion.explosionX),",",
+                  Integer.toString((int) ev.explosion.explosionY),",",
+                  Integer.toString((int) ev.explosion.explosionZ),
+                  " Dim: ",Integer.toString(block.getDim()),
+                  " Town: ",block.getTown().getName()
+          };
+
+          for (int i = 0; i< arr.length; i++) {
+            sb.append(arr[i]);
+          }
+          block.getTown().notifyEveryone(new ChatComponentText(sb.toString()).setChatStyle(new ChatStyle().setColor(ColorUtils.colorMap.get('3'))));
           return;
         }
       }

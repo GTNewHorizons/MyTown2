@@ -7,6 +7,7 @@ import myessentials.entities.api.Volume;
 import mytown.MyTown;
 import mytown.config.Config;
 import mytown.handlers.VisualsHandler;
+import mytown.util.TownBlockKey;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.IChatComponent;
@@ -27,7 +28,7 @@ public class TownBlock implements IChatFormat
   private final int x;
   private final int z;
   private final Town town;
-  private String key;
+  private TownBlockKey key;
 
   private final boolean isFarClaim;
   private final int pricePaid;
@@ -70,14 +71,14 @@ public class TownBlock implements IChatFormat
     return town;
   }
 
-  public String getKey()
+  public TownBlockKey getKey()
   {
     return key;
   }
 
   private void updateKey()
   {
-    key = String.format( KEY_FORMAT, dim, x, z );
+    key = new TownBlockKey(dim, x, z);
   }
 
   public boolean isFarClaim()
@@ -140,7 +141,7 @@ public class TownBlock implements IChatFormat
     return dim == this.dim && cx == x && cz == z;
   }
 
-  public static class Container extends HashMap<String, TownBlock> implements IChatFormat
+  public static class Container extends HashMap<TownBlockKey, TownBlock> implements IChatFormat
   {
 
     private int extraBlocks = 0;
@@ -167,12 +168,12 @@ public class TownBlock implements IChatFormat
 
     public boolean contains( int dim, int x, int z )
     {
-      return super.containsKey( String.format( KEY_FORMAT, dim, x, z ) );
+      return super.containsKey( new TownBlockKey(dim, x, z) );
     }
 
     public TownBlock get( int dim, int x, int z )
     {
-      return super.get( String.format( KEY_FORMAT, dim, x, z ) );
+      return super.get(new TownBlockKey(dim, x, z));
     }
 
     public int getExtraBlocks()

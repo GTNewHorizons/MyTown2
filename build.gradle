@@ -17,6 +17,10 @@ buildscript {
 
 repositories {
     maven {
+        name = "gt"
+        url = "https://gregtech.overminddl1.com/"
+    }
+    maven {
         name = "SpongePowered"
         url = "https://repo.spongepowered.org/maven"
     }
@@ -58,7 +62,8 @@ dependencies {
     // Subproject deps
     compile project(":MyEssentials-Core")
     compile project(":MyPermissions")
-    compile files("libs")
+    compile "com.azanor.baubles:Baubles:1.7.10-1.0.1.10:deobf"
+    compile "thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev"
 }
 
 // Process Resources, injecting version numbers in

@@ -198,6 +198,9 @@ public class CommandsAdmin extends Commands
     else
     {
       rank = town.ranksContainer.getDefaultRank();
+      if (rank == null){
+        rank = Rank.defaultRanks.getDefaultRank();
+      }
     }
 
     getDatasource().linkResidentToTown( target, town, rank );

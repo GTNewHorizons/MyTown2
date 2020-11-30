@@ -35,7 +35,7 @@ mytown.protection.USAGE={c|You cannot use items here}
 mytown.protection.PVP={c|You cannot attack players here}
 mytown.protection.MAXWARP={c|You have too much warp to enter here}
 
-mytown.protection.notify.EXPLOSIONS={3|An explosion has been stopped}
+mytown.protection.notify.EXPLOSIONS={3|Explosion stopped}
 
 # Flag Info
 mytown.flag.ENTER={3|Allows outsiders to enter}

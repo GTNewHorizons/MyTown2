@@ -1,7 +1,7 @@
 package mytown.util;
 
 public class TownBlockKey {
-    int dim, x, z;
+    private int dim, x, z;
     public TownBlockKey(int dim, int x, int z) {
         this.dim = dim;
         this.x = x;

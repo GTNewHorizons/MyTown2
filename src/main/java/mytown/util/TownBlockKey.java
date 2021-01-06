@@ -10,7 +10,10 @@ public class TownBlockKey {
 
     @Override
     public int hashCode() {
-        return (this.dim + 13121) * (this.x | 256) * (this.z | 256);
+        int result = dim;
+        result = 1023 * result + x;
+        result = 1023 * result + z;
+        return result;
     }
 
     @Override

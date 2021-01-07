@@ -1,7 +1,7 @@
 package mytown.util;
 
 public class TownBlockKey {
-    int dim, x, z;
+    private int dim, x, z;
     public TownBlockKey(int dim, int x, int z) {
         this.dim = dim;
         this.x = x;
@@ -10,7 +10,10 @@ public class TownBlockKey {
 
     @Override
     public int hashCode() {
-        return this.dim ^ this.x ^ this.z;
+        int result = dim;
+        result = 1023 * result + x;
+        result = 1023 * result + z;
+        return result;
     }
 
     @Override

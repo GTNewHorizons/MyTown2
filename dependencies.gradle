@@ -1,6 +1,9 @@
 // Add your dependencies here
 
 dependencies {
+    shadowImplementation("com.esotericsoftware:reflectasm:1.11.9")
+    shadowImplementation("org.beanshell:bsh:2.0b5")
+
     compile("com.github.GTNewHorizons:MyPermissions:master-SNAPSHOT:dev")
 
     compileOnly("com.github.GTNewHorizons:Baubles:master-SNAPSHOT:dev") {

@@ -1,10 +1,10 @@
 [
 {
-  "modid": "MyTown2",
-  "name": "MyTown 2",
+  "modid": "${modId}",
+  "name": "${modName}",
   "description": "Create towns, protect your stuff! Continuation of the original MyTown by Alpha!",
-  "version": "${mod_version}",
-  "mcversion": "${minecraft_version}",
+  "version": "${modVersion}",
+  "mcversion": "${minecraftVersion}",
   "url": "",
   "updateUrl": "",
   "authorList": [

@@ -8,7 +8,7 @@ import net.minecraft.util.EnumChatFormatting;
 public class Constants
 {
 
-  public static final String VERSION = "@VERSION@";
+  public static final String VERSION = "GRADLETOKEN_VERSION";
   public static final String MODID = "MyTown2";
   public static final String MODNAME = "MyTown 2";
   public static final String DEPENDENCIES = "required-after:Forge;required-after:MyEssentials-Core;required-after:MyPermissions;after:WorldEdit;before:ForgeEssentials;";

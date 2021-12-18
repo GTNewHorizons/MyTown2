@@ -1,0 +1,16 @@
+// Add your dependencies here
+
+dependencies {
+    shadowImplementation("com.esotericsoftware:reflectasm:1.11.9")
+    shadowImplementation("org.beanshell:bsh:2.0b5")
+
+    compile("com.github.GTNewHorizons:MyPermissions:master-SNAPSHOT:dev")
+
+    compileOnly("com.github.GTNewHorizons:Baubles:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+
+    compileOnly("thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev") {
+        transitive = false
+    }
+}

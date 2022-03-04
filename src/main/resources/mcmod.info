@@ -16,7 +16,7 @@
 		"credits": "This is the GTNH fork",
 		"requiredMods": ["Forge", "MyPermissions"],
 		"dependencies": ["MyPermissions"],
-		"dependants": [""],
+		"dependants": [],
 		"useDependencyInformation": true
 	}]
 }

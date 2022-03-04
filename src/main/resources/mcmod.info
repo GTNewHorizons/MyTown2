@@ -1,17 +1,22 @@
-[
 {
-  "modid": "${modId}",
-  "name": "${modName}",
-  "description": "Create towns, protect your stuff! Continuation of the original MyTown by Alpha!",
-  "version": "${modVersion}",
-  "mcversion": "${minecraftVersion}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": [
-    "Alpha",
-    "Legobear154",
-	"AfterWind"
-  ],
-  "credits": "Alpha, Legobear154 and AfterWind"
+	"modListVersion": 2,
+	"modList": [{
+		"modid": "${modId}",
+		"name": "${modName}",
+		"description": "Create towns, protect your stuff! Continuation of the original MyTown by Alpha!",
+		"version": "${modVersion}",
+		"mcversion": "${minecraftVersion}",
+		"url": "",
+		"updateUrl": "",
+		"authorList": [
+			"Alpha",
+			"Legobear154",
+			"AfterWind"
+		],
+		"credits": "This is the GTNH fork",
+		"requiredMods": ["Forge", "MyPermissions"],
+		"dependencies": ["MyPermissions"],
+		"dependants": [""],
+		"useDependencyInformation": true
+	}]
 }
-]

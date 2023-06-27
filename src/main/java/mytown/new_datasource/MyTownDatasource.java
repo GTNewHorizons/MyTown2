@@ -135,6 +135,11 @@ public class MyTownDatasource extends DatasourceSQL
       while( rs.next() )
       {
         Town town = getUniverse().towns.get( rs.getString( "townName" ) );
+        if (town == null)
+        {
+          LOG.error("getUniverse->towns->get returned null for town " . rs.getString( "townName" ));
+          continue;
+        }
         TownBlock block = new TownBlock( rs.getInt( "dim" ), rs.getInt( "x" ), rs.getInt( "z" ), rs.getBoolean( "isFarClaim" ), rs.getInt( "pricePaid" ), town );
 
         town.townBlocksContainer.add( block );

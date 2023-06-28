@@ -1,14 +1,14 @@
 package mytown.util.exceptions;
 
-
-import mytown.MyTown;
 import net.minecraft.command.WrongUsageException;
 
+import mytown.MyTown;
 
-public class MyTownWrongUsageException extends WrongUsageException
-{
-  public MyTownWrongUsageException( String key, Object... args )
-  {
-    super( MyTown.instance.LOCAL.getLocalization( key, args ).getUnformattedText() );
-  }
+public class MyTownWrongUsageException extends WrongUsageException {
+
+    public MyTownWrongUsageException(String key, Object... args) {
+        super(
+            MyTown.instance.LOCAL.getLocalization(key, args)
+                .getUnformattedText());
+    }
 }

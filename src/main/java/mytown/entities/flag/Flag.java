@@ -1,192 +1,161 @@
 package mytown.entities.flag;
 
-
-import com.google.gson.*;
-import myessentials.chat.api.ChatComponentFormatted;
-import myessentials.chat.api.ChatComponentList;
-
-import myessentials.chat.api.IChatFormat;
-import myessentials.json.api.SerializerTemplate;
-import myessentials.localization.api.LocalManager;
-import net.minecraft.util.IChatComponent;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import net.minecraft.util.IChatComponent;
 
-public class Flag<T> implements Comparable<Flag>, IChatFormat
-{
-  protected Gson gson = new GsonBuilder().create();
+import com.google.gson.*;
 
-  public T value;
-  public boolean configurable = true;
-  public final FlagType<T> flagType;
+import myessentials.chat.api.ChatComponentFormatted;
+import myessentials.chat.api.ChatComponentList;
+import myessentials.chat.api.IChatFormat;
+import myessentials.json.api.SerializerTemplate;
+import myessentials.localization.api.LocalManager;
 
-  public Flag( FlagType<T> flagType, String serializedValue )
-  {
-    this.flagType = flagType;
-    this.value = gson.fromJson( serializedValue, flagType.type );
-  }
+public class Flag<T> implements Comparable<Flag>, IChatFormat {
 
-  public Flag( FlagType<T> flagType, T value )
-  {
-    this.flagType = flagType;
-    this.value = value;
-  }
+    protected Gson gson = new GsonBuilder().create();
 
-  public boolean setValue( String value )
-  {
-    if( flagType.type == Boolean.class )
-    {
-      this.value = (T) Boolean.valueOf( value );
-      return true;
+    public T value;
+    public boolean configurable = true;
+    public final FlagType<T> flagType;
+
+    public Flag(FlagType<T> flagType, String serializedValue) {
+        this.flagType = flagType;
+        this.value = gson.fromJson(serializedValue, flagType.type);
     }
-    else if( flagType.type == String.class )
-    {
-      this.value = (T) value;
-      return true;
+
+    public Flag(FlagType<T> flagType, T value) {
+        this.flagType = flagType;
+        this.value = value;
     }
-    else if( flagType.type == Integer.class )
-    {
-      this.value = (T) Integer.valueOf( value );
-      return true;
+
+    public boolean setValue(String value) {
+        if (flagType.type == Boolean.class) {
+            this.value = (T) Boolean.valueOf(value);
+            return true;
+        } else if (flagType.type == String.class) {
+            this.value = (T) value;
+            return true;
+        } else if (flagType.type == Integer.class) {
+            this.value = (T) Integer.valueOf(value);
+            return true;
+        } else if (flagType.type == Float.class) {
+            this.value = (T) Float.valueOf(value);
+            return true;
+        }
+        return false;
     }
-    else if( flagType.type == Float.class )
-    {
-      this.value = (T) Float.valueOf( value );
-      return true;
-    }
-    return false;
-  }
 
-  public boolean toggle()
-  {
-    if( flagType.type != Boolean.class )
-    {
-      return false;
-    }
-    this.value = (T) Boolean.valueOf( !( (Boolean) this.value ) );
-    return true;
-  }
-
-  @Override
-  public String toString()
-  {
-    return toChatMessage().getUnformattedText();
-  }
-
-  @Override
-  public int compareTo( Flag other )
-  {
-    return flagType.compareTo( other.flagType );
-  }
-
-  @Override
-  public IChatComponent toChatMessage()
-  {
-    IChatComponent description = LocalManager.get( flagType.getDescriptionKey() );
-    return LocalManager.get( "mytown.format.flag", flagType.name.toLowerCase(), description, value );
-  }
-
-  @SuppressWarnings( "unchecked" )
-  public static class Serializer extends SerializerTemplate<Flag>
-  {
-
-    @Override
-    public void register( GsonBuilder builder )
-    {
-      builder.registerTypeAdapter( Flag.class, this );
-      new FlagType.Serializer().register( builder );
+    public boolean toggle() {
+        if (flagType.type != Boolean.class) {
+            return false;
+        }
+        this.value = (T) Boolean.valueOf(!((Boolean) this.value));
+        return true;
     }
 
     @Override
-    public JsonElement serialize( Flag flag, Type typeOfSrc, JsonSerializationContext context )
-    {
-      JsonObject json = new JsonObject();
-
-      json.add( "flagType", context.serialize( flag.flagType ) );
-      json.addProperty( "value", flag.flagType.serializeValue( flag.value ) );
-
-      return json;
+    public String toString() {
+        return toChatMessage().getUnformattedText();
     }
 
     @Override
-    public Flag deserialize( JsonElement json, Type typeOfT, JsonDeserializationContext context ) throws JsonParseException
-    {
-      JsonObject jsonObject = json.getAsJsonObject();
-
-      FlagType flagType = context.deserialize( jsonObject.get( "flagType" ), FlagType.class );
-      Flag flag = new Flag( flagType, jsonObject.get( "value" ).getAsString() );
-
-      return flag;
-    }
-  }
-
-
-  public static class Container extends ArrayList<Flag> implements IChatFormat
-  {
-
-    public boolean contains( FlagType<?> flagType )
-    {
-      for( Flag flag : this )
-      {
-        if( flag.flagType == flagType )
-        {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    public <T> Flag<T> get( FlagType<T> flagType )
-    {
-      for( Flag flag : this )
-      {
-        if( flag.flagType == flagType )
-        {
-          return flag;
-        }
-      }
-      return null;
-    }
-
-    public void remove( FlagType<?> flagType )
-    {
-      for( Iterator<Flag> it = iterator(); it.hasNext(); )
-      {
-        if( it.next().flagType.equals( flagType ) )
-        {
-          it.remove();
-        }
-      }
-    }
-
-    public <T> T getValue( FlagType<T> flagType )
-    {
-      for( Flag flag : this )
-      {
-        if( flag.flagType == flagType )
-        {
-          return (T) flag.value;
-        }
-      }
-      return null;
+    public int compareTo(Flag other) {
+        return flagType.compareTo(other.flagType);
     }
 
     @Override
-    public IChatComponent toChatMessage()
-    {
-      IChatComponent root = new ChatComponentList();
-
-      root.appendSibling( LocalManager.get( "myessentials.format.list.header", new ChatComponentFormatted( "{9|FLAGS}" ) ) );
-
-      for( Flag flag : this )
-      {
-        root.appendSibling( flag.toChatMessage() );
-      }
-
-      return root;
+    public IChatComponent toChatMessage() {
+        IChatComponent description = LocalManager.get(flagType.getDescriptionKey());
+        return LocalManager.get("mytown.format.flag", flagType.name.toLowerCase(), description, value);
     }
-  }
+
+    @SuppressWarnings("unchecked")
+    public static class Serializer extends SerializerTemplate<Flag> {
+
+        @Override
+        public void register(GsonBuilder builder) {
+            builder.registerTypeAdapter(Flag.class, this);
+            new FlagType.Serializer().register(builder);
+        }
+
+        @Override
+        public JsonElement serialize(Flag flag, Type typeOfSrc, JsonSerializationContext context) {
+            JsonObject json = new JsonObject();
+
+            json.add("flagType", context.serialize(flag.flagType));
+            json.addProperty("value", flag.flagType.serializeValue(flag.value));
+
+            return json;
+        }
+
+        @Override
+        public Flag deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+            JsonObject jsonObject = json.getAsJsonObject();
+
+            FlagType flagType = context.deserialize(jsonObject.get("flagType"), FlagType.class);
+            Flag flag = new Flag(
+                flagType,
+                jsonObject.get("value")
+                    .getAsString());
+
+            return flag;
+        }
+    }
+
+    public static class Container extends ArrayList<Flag> implements IChatFormat {
+
+        public boolean contains(FlagType<?> flagType) {
+            for (Flag flag : this) {
+                if (flag.flagType == flagType) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public <T> Flag<T> get(FlagType<T> flagType) {
+            for (Flag flag : this) {
+                if (flag.flagType == flagType) {
+                    return flag;
+                }
+            }
+            return null;
+        }
+
+        public void remove(FlagType<?> flagType) {
+            for (Iterator<Flag> it = iterator(); it.hasNext();) {
+                if (it.next().flagType.equals(flagType)) {
+                    it.remove();
+                }
+            }
+        }
+
+        public <T> T getValue(FlagType<T> flagType) {
+            for (Flag flag : this) {
+                if (flag.flagType == flagType) {
+                    return (T) flag.value;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        public IChatComponent toChatMessage() {
+            IChatComponent root = new ChatComponentList();
+
+            root.appendSibling(
+                LocalManager.get("myessentials.format.list.header", new ChatComponentFormatted("{9|FLAGS}")));
+
+            for (Flag flag : this) {
+                root.appendSibling(flag.toChatMessage());
+            }
+
+            return root;
+        }
+    }
 }

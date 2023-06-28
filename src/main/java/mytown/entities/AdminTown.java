@@ -1,16 +1,13 @@
 package mytown.entities;
 
+public class AdminTown extends Town {
 
-public class AdminTown extends Town
-{
-  public AdminTown( String name )
-  {
-    super( name );
-  }
+    public AdminTown(String name) {
+        super(name);
+    }
 
-  @Override
-  public int getMaxBlocks()
-  {
-    return Integer.MAX_VALUE;
-  }
+    @Override
+    public int getMaxBlocks() {
+        return Integer.MAX_VALUE;
+    }
 }

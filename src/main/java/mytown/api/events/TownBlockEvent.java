@@ -1,42 +1,36 @@
 package mytown.api.events;
 
+import net.minecraftforge.common.MinecraftForge;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;
 import mytown.entities.TownBlock;
-import net.minecraftforge.common.MinecraftForge;
 
+public class TownBlockEvent extends Event {
 
-public class TownBlockEvent extends Event
-{
-  public TownBlock block = null;
+    public TownBlock block = null;
 
-  public TownBlockEvent( TownBlock block )
-  {
-    this.block = block;
-  }
-
-  @Cancelable
-  public static class BlockCreateEvent extends TownBlockEvent
-  {
-    public BlockCreateEvent( TownBlock block )
-    {
-      super( block );
+    public TownBlockEvent(TownBlock block) {
+        this.block = block;
     }
-  }
 
+    @Cancelable
+    public static class BlockCreateEvent extends TownBlockEvent {
 
-  @Cancelable
-  public static class BlockDeleteEvent extends TownBlockEvent
-  {
-    public BlockDeleteEvent( TownBlock block )
-    {
-      super( block );
+        public BlockCreateEvent(TownBlock block) {
+            super(block);
+        }
     }
-  }
 
-  public static boolean fire( TownBlockEvent ev )
-  {
-    return MinecraftForge.EVENT_BUS.post( ev );
-  }
+    @Cancelable
+    public static class BlockDeleteEvent extends TownBlockEvent {
+
+        public BlockDeleteEvent(TownBlock block) {
+            super(block);
+        }
+    }
+
+    public static boolean fire(TownBlockEvent ev) {
+        return MinecraftForge.EVENT_BUS.post(ev);
+    }
 }

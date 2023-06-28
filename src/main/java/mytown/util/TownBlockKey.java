@@ -1,7 +1,9 @@
 package mytown.util;
 
 public class TownBlockKey {
+
     private int dim, x, z;
+
     public TownBlockKey(int dim, int x, int z) {
         this.dim = dim;
         this.x = x;
@@ -18,10 +20,9 @@ public class TownBlockKey {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof TownBlockKey))
-            return false;
+        if (!(o instanceof TownBlockKey)) return false;
 
-        TownBlockKey key = (TownBlockKey)o;
+        TownBlockKey key = (TownBlockKey) o;
 
         return key.dim == dim && key.x == x && key.z == z;
     }

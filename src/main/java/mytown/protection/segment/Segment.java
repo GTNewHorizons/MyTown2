@@ -1,20 +1,30 @@
 package mytown.protection.segment;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayer;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.google.common.reflect.TypeToken;
-import com.google.gson.*;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
 import com.google.gson.internal.LazilyParsedNumber;
 
 import myessentials.entities.api.Volume;
 import myessentials.json.api.SerializerTemplate;
 import mytown.MyTown;
-import mytown.entities.*;
+import mytown.entities.Resident;
 import mytown.entities.flag.FlagType;
 import mytown.new_datasource.MyTownUniverse;
 import mytown.protection.ProtectionManager;

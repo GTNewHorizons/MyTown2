@@ -4,12 +4,17 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import com.google.common.reflect.TypeToken;
-import com.google.gson.*;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import myessentials.json.api.SerializerTemplate;
-import mytown.protection.segment.*;
+import mytown.protection.segment.Segment;
 import mytown.util.exceptions.ProtectionParseException;
 
 /**

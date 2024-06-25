@@ -13,10 +13,6 @@
 			"Legobear154",
 			"AfterWind"
 		],
-		"credits": "This is the GTNH fork",
-		"requiredMods": ["Forge", "MyPermissions"],
-		"dependencies": ["MyPermissions"],
-		"dependants": [],
-		"useDependencyInformation": true
+		"credits": "This is the GTNH fork"
 	}]
 }

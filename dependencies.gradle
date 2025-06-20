@@ -4,7 +4,7 @@ dependencies {
     shadowImplementation('com.esotericsoftware:reflectasm:1.11.9')
     shadowImplementation('org.beanshell:bsh:2.0b5')
 
-    compile('com.github.GTNewHorizons:MyPermissions:1.0-GTNH:dev')
+    compile('com.github.GTNewHorizons:MyPermissions:1.1.0-GTNH:dev')
 
     compileOnly('com.github.GTNewHorizons:Baubles:1.0.4:dev') {transitive = false}
 

@@ -3,6 +3,7 @@
 dependencies {
     shadowImplementation('com.esotericsoftware:reflectasm:1.11.9')
     shadowImplementation('org.beanshell:bsh:2.0b5')
+    shadowImplementation('org.xerial:sqlite-jdbc:3.36.0.3')
 
     compile('com.github.GTNewHorizons:MyPermissions:1.1.1-GTNH:dev') {transitive = false}
 	compile('com.github.GTNewHorizons:MyEssentials-Core:1.21r:dev') {transitive = false}

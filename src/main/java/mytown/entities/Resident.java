@@ -1,10 +1,12 @@
 package mytown.entities;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.UnaryOperator;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -249,14 +251,55 @@ public class Resident implements IChatFormat {
 
     public static class Container extends ArrayList<Resident> implements IChatFormat {
 
+        private transient int lastLookupIndex = -1;
+        private transient int lastLookupModCount = -1;
+        private transient boolean cacheLookup = getClass() == Container.class;
+
         public Resident get(UUID uuid) {
+            int index = lastLookupIndex;
+            if (cacheLookup && lastLookupModCount == modCount && index >= 0 && index < size()) {
+                Resident resident = super.get(index);
+                if (resident.getUUID()
+                    .equals(uuid)) return resident;
+            }
+
+            index = 0;
             for (Resident res : this) {
                 if (res.getUUID()
                     .equals(uuid)) {
+                    if (cacheLookup) {
+                        lastLookupIndex = index;
+                        lastLookupModCount = modCount;
+                    }
                     return res;
                 }
+                index++;
             }
             return null;
+        }
+
+        @Override
+        public Resident set(int index, Resident resident) {
+            lastLookupIndex = -1;
+            return super.set(index, resident);
+        }
+
+        @Override
+        public void replaceAll(UnaryOperator<Resident> operator) {
+            cacheLookup = false;
+            super.replaceAll(operator);
+        }
+
+        @Override
+        public void sort(Comparator<? super Resident> comparator) {
+            cacheLookup = false;
+            super.sort(comparator);
+        }
+
+        @Override
+        public List<Resident> subList(int fromIndex, int toIndex) {
+            cacheLookup = false;
+            return super.subList(fromIndex, toIndex);
         }
 
         public Resident get(String username) {

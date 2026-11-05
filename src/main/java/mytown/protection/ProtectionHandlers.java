@@ -44,7 +44,6 @@ import mytown.entities.Town;
 import mytown.entities.flag.FlagType;
 import mytown.new_datasource.MyTownUniverse;
 import mytown.thread.ThreadPlacementCheck;
-import mytown.util.MyTownUtils;
 
 /**
  * Handles all the protections
@@ -102,10 +101,6 @@ public class ProtectionHandlers {
             Object item = ev.world.loadedEntityList.get(i);
             if (item == null) continue;
             Entity entity = (Entity) item;
-            Town town = MyTownUtils.getTownAtPosition(
-                entity.dimension,
-                (int) Math.floor(entity.posX) >> 4,
-                (int) Math.floor(entity.posZ) >> 4);
             // MyTown.instance.log.info("Checking player...");
             // Player check, every tick
             if (entity instanceof EntityPlayerMP && !(entity instanceof FakePlayer)) {

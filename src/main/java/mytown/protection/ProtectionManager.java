@@ -326,31 +326,24 @@ public class ProtectionManager {
      * @return
      */
     public static boolean checkWarpLevel(Resident res, int dim, int x, int y, int z) {
-        if (MyTownUniverse.instance.blocks.contains(dim, x >> 4, z >> 4)) {
-            Town town = MyTownUniverse.instance.blocks.get(dim, x >> 4, z >> 4)
-                .getTown();
-            return town.checkWarpLevel(res);
-        } else return true;
+        TownBlock townBlock = MyTownUniverse.instance.blocks.get(dim, x >> 4, z >> 4);
+        if (townBlock == null) return true;
+        return townBlock.getTown()
+            .checkWarpLevel(res);
     }
 
     public static boolean hasPermission(Resident res, FlagType<Boolean> flagType, int dim, int x, int y, int z) {
-        if (MyTownUniverse.instance.blocks.contains(dim, x >> 4, z >> 4)) {
-            Town town = MyTownUniverse.instance.blocks.get(dim, x >> 4, z >> 4)
-                .getTown();
-            return town.hasPermission(res, flagType, dim, x, y, z);
-        } else {
-            return !flagType.isWildPerm || Wild.instance.hasPermission(res, flagType);
-        }
+        TownBlock townBlock = MyTownUniverse.instance.blocks.get(dim, x >> 4, z >> 4);
+        if (townBlock == null) return !flagType.isWildPerm || Wild.instance.hasPermission(res, flagType);
+        return townBlock.getTown()
+            .hasPermission(res, flagType, dim, x, y, z);
     }
 
     public static <T> T getFlagValueAtLocation(FlagType<T> flagType, int dim, int x, int y, int z) {
-        if (MyTownUniverse.instance.blocks.contains(dim, x >> 4, z >> 4)) {
-            Town town = MyTownUniverse.instance.blocks.get(dim, x >> 4, z >> 4)
-                .getTown();
-            return town.getValueAtCoords(dim, x, y, z, flagType);
-        } else {
-            return flagType.isWildPerm ? Wild.instance.flagsContainer.get(flagType).value : null;
-        }
+        TownBlock townBlock = MyTownUniverse.instance.blocks.get(dim, x >> 4, z >> 4);
+        if (townBlock == null) return flagType.isWildPerm ? Wild.instance.flagsContainer.get(flagType).value : null;
+        return townBlock.getTown()
+            .getValueAtCoords(dim, x, y, z, flagType);
     }
 
     public static boolean hasPermission(Resident res, FlagType<Boolean> flagType, int dim, Volume volume) {

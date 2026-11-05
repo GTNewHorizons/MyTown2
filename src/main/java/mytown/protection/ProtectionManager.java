@@ -129,6 +129,13 @@ public class ProtectionManager {
                         lastTickPos.getZ());
                 }
         } else {
+            if (lastTickPos != null && lastTickPos.getDim() == player.dimension
+                && lastTickPos.getX() == player.posX
+                && lastTickPos.getY() == player.posY
+                && lastTickPos.getZ() == player.posZ) {
+                return;
+            }
+
             // TODO: Refactor so that it's understandable
             if (lastTickPos != null
                 && (((int) Math.floor(lastTickPos.getX())) >> 4 != (int) (Math.floor(player.posX)) >> 4

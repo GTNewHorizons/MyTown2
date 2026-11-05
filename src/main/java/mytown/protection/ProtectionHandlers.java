@@ -1,6 +1,7 @@
 package mytown.protection;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.minecraft.block.ITileEntityProvider;
@@ -95,28 +96,28 @@ public class ProtectionHandlers {
 
         // Entity check
         // TODO: Rethink this system a couple million times before you come up with the best algorithm :P
-        int loadedEntityListSize = ev.world.loadedEntityList.size();
-        for (int i = 0; i < loadedEntityListSize; i++) {
-            if (i >= ev.world.loadedEntityList.size()) continue;
-            Object item = ev.world.loadedEntityList.get(i);
+        int tickCounter = MinecraftServer.getServer()
+            .getTickCounter();
+        boolean checkEntities = tickCounter % 20 == 5;
+        List<?> entities = checkEntities ? ev.world.loadedEntityList : ev.world.playerEntities;
+        int entityListSize = entities.size();
+        for (int i = 0; i < entityListSize; i++) {
+            if (i >= entities.size()) continue;
+            Object item = entities.get(i);
             if (item == null) continue;
             Entity entity = (Entity) item;
             // MyTown.instance.log.info("Checking player...");
             // Player check, every tick
             if (entity instanceof EntityPlayerMP && !(entity instanceof FakePlayer)) {
                 ProtectionManager.check((EntityPlayerMP) entity);
-            } else {
+            } else if (checkEntities) {
                 // Other entity checks
-                if (MinecraftServer.getServer()
-                    .getTickCounter() % 20 == 5) {
-                    ProtectionManager.checkExist(entity, false);
-                }
+                ProtectionManager.checkExist(entity, false);
             }
         }
 
         // TileEntity check
-        if (MinecraftServer.getServer()
-            .getTickCounter() % 20 == 15) {
+        if (tickCounter % 20 == 15) {
             if (activePlacementThreads == 0) {
                 int loadedTileEntityListSize = ev.world.loadedTileEntityList.size();
                 for (int i = 0; i < loadedTileEntityListSize; i++) {

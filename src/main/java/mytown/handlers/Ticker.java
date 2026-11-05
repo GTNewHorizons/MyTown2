@@ -24,15 +24,14 @@ public class Ticker {
     private int lastCalendarDay = -1;
 
     @SubscribeEvent
-    public void onTickEvent(TickEvent.WorldTickEvent ev) {
-        if (ev.side == Side.CLIENT) return;
+    public void onTickEvent(TickEvent.ServerTickEvent ev) {
+        if (ev.side == Side.CLIENT || ev.phase != TickEvent.Phase.START) return;
 
         for (Resident res : MyTownUniverse.instance.residents) {
             res.tick();
         }
 
-        if ((Config.instance.costTownUpkeep.get() > 0 || Config.instance.costAdditionalUpkeep.get() > 0)
-            && ev.phase == TickEvent.Phase.START) {
+        if (Config.instance.costTownUpkeep.get() > 0 || Config.instance.costAdditionalUpkeep.get() > 0) {
             if (ticked) {
                 if (lastCalendarDay != -1 && Calendar.getInstance()
                     .get(Calendar.DAY_OF_YEAR) != lastCalendarDay) {
